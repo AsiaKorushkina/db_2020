@@ -2,8 +2,8 @@ package heroes;
 
 public class Hobbit extends Hero{
 
-    public Hobbit() {
-        this.name = "Hobbit";
+    public Hobbit(String name) {
+        this.name = "Hobbit " + name;
         this.power = 0;
         this.hp = 3;
     }
@@ -14,6 +14,6 @@ public class Hobbit extends Hero{
     }
 
     private void toCry() {
-        System.out.println("I am crying!");
+        System.out.println(name + " is crying!");
     }
 }

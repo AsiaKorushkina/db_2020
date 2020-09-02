@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class Elf extends Hero {
 
-    public Elf() {
+    public Elf(String name) {
         Random random = new Random();
 
-        this.name = "Elf";
+        this.name = "Elf " + name;
         this.power = 10;
         this.hp = 10;
 
