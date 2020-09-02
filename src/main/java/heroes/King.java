@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class King extends Human {
 
-    public King(String name) {
+    public King() {
         Random random = new Random();
 
-        this.name = "King " + name;
+        this.name = "King ";
         this.power = 5 + random.nextInt(11);
         this.hp = 5 + random.nextInt(11);
 
