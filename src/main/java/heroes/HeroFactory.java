@@ -50,8 +50,8 @@ public class HeroFactory{
                 .filter(i -> i != Human.class)
                 .collect(Collectors.toList());
         Class<?> randomHeroType = s.get(ThreadLocalRandom.current().nextInt(0, s.size()));
-        Constructor<?> ctor = randomHeroType.getConstructor(String.class);
+        Constructor<?> c = randomHeroType.getConstructor(String.class);
 
-        return (Hero) ctor.newInstance(name);
+        return (Hero) c.newInstance(name);
         }
 }
