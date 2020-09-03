@@ -15,10 +15,12 @@ public class HttpCodeService {
         int code = Integer.parseInt(text.substring(index + t.length(), index + t.length() + 3));
         System.out.println(code);
         for (PROCESSES p: PROCESSES.values()){
-            if (code / 100 == p.ordinal() + 1){
+            if (code  >= p.getMin() && code <= p.getMax()){
                 p.work();
+                return;
             }
         }
+        throw new IllegalArgumentException(code + " is not correct.");
 
     }
 }
