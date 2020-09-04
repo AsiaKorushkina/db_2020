@@ -1,31 +1,17 @@
 package lab2;
 
 import lombok.Getter;
+import lombok.experimental.Delegate;
 
 @Getter
 public class RadioAlarm implements Alarm, Radio {
 
-    @Override
-    public void c() {
-        System.out.println("RadioAlarm does c().");
-    }
+    @Delegate
+    RadioImpl radio = new RadioImpl();
+    @Delegate
+    AlarmImpl alarm = new AlarmImpl();
 
-    @Override
-    public void d() {
-        System.out.println("RadioAlarm does d().");
 
-    }
-
-    @Override
-    public void a() {
-        System.out.println("RadioAlarm does a().");
-
-    }
-
-    @Override
-    public void b() {
-        System.out.println("RadioAlarm does b().");
-    }
 
     public static void main(String[] args) {
         RadioAlarm radioAlarm = new RadioAlarm();
