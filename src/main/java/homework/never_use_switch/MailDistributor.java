@@ -6,23 +6,23 @@ import org.reflections.Reflections;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Evgeny Borisov
  */
-public class MailDistributor<hashMap> {
+public class MailDistributor {
 
-    Reflections scanner = new Reflections("homework.never_use_switch");
     private List<Class<? extends MailAction>> classes;
-    private HashMap<Integer, MailAction> hashMap = new HashMap<>();
-
+    private Map<Integer, MailAction> hashMap = new HashMap<Integer, MailAction>();
 
     @SneakyThrows
     public MailDistributor()
     {
+        Reflections scanner = new Reflections("homework.never_use_switch");
         classes = new ArrayList<>(scanner.getSubTypesOf(MailAction.class));
-        for (Class<? extends MailAction> aClass : classes) {
-            MailAction mailAction = aClass.getDeclaredConstructor().newInstance();
+        for (Class<? extends MailAction> cl : classes){
+            MailAction mailAction = cl.getDeclaredConstructor().newInstance();
             hashMap.put(mailAction.getType(), mailAction);
         }
 

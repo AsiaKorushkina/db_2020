@@ -3,10 +3,13 @@ package homework.never_use_switch;
 import lombok.Getter;
 
 @Getter
-public class WelcomeMail extends MailAction {
+public class WelcomeMail implements MailAction {
+
+
+    private int type;
 
     public WelcomeMail(){
-        this.setType(1);
+        this.type = 1;
     }
 
     @Override
