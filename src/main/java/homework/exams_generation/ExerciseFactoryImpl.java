@@ -4,10 +4,7 @@ import homework.never_use_switch.MailSender;
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class ExerciseFactoryImpl implements ExerciseFactory {
 
@@ -24,10 +21,25 @@ public class ExerciseFactoryImpl implements ExerciseFactory {
             exerciseMap.put(exercise.getOperator(), exercise);
         }
     }
+
+    @SneakyThrows
+    public ExerciseFactoryImpl(ConstraintsExercise constraintsExercises){
+        Random random = new Random();
+
+        Reflections scanner = new Reflections("homework.exams_generation");
+        Set<Class<? extends Exercise>> classes = scanner.getSubTypesOf(Exercise.class);
+        for (Class<? extends Exercise> aClass : classes) {
+            Exercise exercise = aClass.getDeclaredConstructor(ConstraintsExercise.class).newInstance(constraintsExercises);
+            exerciseMap.put(exercise.getOperator(), exercise);
+        }
+
+    }
+
     @Override
     public Exercise createExercise() {
         Random random = new Random();
         Operator[] operator = Operator.values();
         return exerciseMap.get(operator[random.nextInt(operator.length)]);
     }
+
 }
