@@ -42,4 +42,10 @@ public class ExerciseFactoryImpl implements ExerciseFactory {
         return exerciseMap.get(operator[random.nextInt(operator.length)]);
     }
 
+    @Override
+    public Exercise createExercise(Operator operator) {
+        return exerciseMap.get(operator);
+    }
+
+
 }
