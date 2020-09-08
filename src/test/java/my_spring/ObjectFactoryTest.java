@@ -45,7 +45,7 @@ public class ObjectFactoryTest {
     }
 
     @Test
-    public void testIfNotSingleTon() {
+    public void testIfNotSingleton() {
         ObjectFactoryContext applicationContext = new ObjectFactoryContextImpl();
         Cleaner cleaner1 = applicationContext.getObjectFactoryInstance(CleanerImpl.class);
         Cleaner cleaner2 = applicationContext.getObjectFactoryInstance(CleanerImpl.class);
