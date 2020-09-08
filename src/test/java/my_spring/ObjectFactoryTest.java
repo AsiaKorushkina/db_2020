@@ -34,6 +34,24 @@ public class ObjectFactoryTest {
         SuperHero superHero = ObjectFactory.getInstance().createObject(SuperHero.class);
         Assert.assertEquals(Batman.class, superHero.getClass());
     }
+
+    @Test
+    public void testIfSingleton() {
+        ObjectFactoryContext applicationContext = new ObjectFactoryContextImpl();
+        Speaker speaker1 = applicationContext.getObjectFactoryInstance(ConsoleSpeaker.class);
+        Speaker speaker2 = applicationContext.getObjectFactoryInstance(ConsoleSpeaker.class);
+
+        Assert.assertEquals(speaker1, speaker2);
+    }
+
+    @Test
+    public void testIfNotSingleTon() {
+        ObjectFactoryContext applicationContext = new ObjectFactoryContextImpl();
+        Cleaner cleaner1 = applicationContext.getObjectFactoryInstance(CleanerImpl.class);
+        Cleaner cleaner2 = applicationContext.getObjectFactoryInstance(CleanerImpl.class);
+
+        Assert.assertNotEquals(cleaner1, cleaner2);
+    }
 }
 
 

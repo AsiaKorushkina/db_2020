@@ -11,9 +11,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Evgeny Borisov
@@ -29,6 +27,12 @@ public class ObjectFactory {
     private List<ObjectConfigurer> objectConfigurers = new ArrayList<>();
 
     private Reflections scanner = new Reflections("my_spring");
+
+    private static Map<Class<?>, Object> singletonMap = new HashMap<>();
+
+    public static <T> void addSingleton(Class<? extends T> cl, Object t) {
+        singletonMap.put(cl, t);
+    }
 
     @SneakyThrows
     private ObjectFactory() {
@@ -48,6 +52,9 @@ public class ObjectFactory {
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
         Class<? extends T> implClass = resolveImpl(type);
+        if (singletonMap.containsKey(implClass)) {
+            return (T) singletonMap.get(implClass);
+        }
         T t = create(implClass);
         configure(t);
         invokeInitMethod(implClass, t);
