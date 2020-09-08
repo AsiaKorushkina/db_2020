@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 /**
  * @author Evgeny Borisov
  */
-@Benchmark
 public final class CleanerImpl implements Cleaner {
 
 
@@ -17,7 +16,9 @@ public final class CleanerImpl implements Cleaner {
         System.out.println("repeat = " + repeat);
     }
 
+
     @Override
+    @Benchmark
     public void clean() {
         for (int i = 0; i < repeat; i++) {
             System.out.println("VVVVVVVVVVVVVVVVVVvvvvvvvvvvvvvvvvvvvv");

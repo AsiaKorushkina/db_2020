@@ -23,6 +23,8 @@ public class ObjectFactory {
 
     private Reflections scanner;
 
+    private ProxyConfigurer proxyConfigurer = new ProxyConfigurerImpl();
+
     @SneakyThrows
     ObjectFactory(ApplicationContext context, Reflections scanner) {
         this.scanner = scanner;
@@ -47,25 +49,11 @@ public class ObjectFactory {
 
         invokeInitMethod(implClass, t);
 
-        if (implClass.isAnnotationPresent(Benchmark.class)) {
-            return (T) Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(), new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-                    System.out.println("************* BENCHMARK STARTED for method "+ method.getName()+" ****************");
-                    long start = System.nanoTime();
-                    Object retVal = method.invoke(t, args);
-                    long end = System.nanoTime();
-                    System.out.println(end-start);
-                    System.out.println("************* BENCHMARK ENDED for method "+ method.getName()+" ****************");
-                    return retVal;
-                }
-            });
-        }
+        t = proxyConfigurer.getProxy(t);
 
         return t;
     }
-
 
 
 
