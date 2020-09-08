@@ -5,7 +5,7 @@ public class SingletonAnnotationObjectConfigurer implements ObjectConfigurer {
     public void configure(Object t) {
         Class<?> implClass = t.getClass();
         if (implClass.isAnnotationPresent(Singleton.class)) {
-            ObjectFactory.addSingleton(t.getClass(), t);
+            ObjectFactory.addSingleton(implClass, t);
         }
     }
 }
