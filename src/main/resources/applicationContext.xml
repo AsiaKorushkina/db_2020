@@ -6,18 +6,18 @@
 
 
 
-    <bean class="my_spring.BeanDefinitionValidatorBeanFactoryPostProcessor"/>
+<!--    <bean class="my_spring.BeanDefinitionValidatorBeanFactoryPostProcessor"/>-->
 
 <!--    <bean class="real_spring.quoters.InjectRandomIntAnnotationBeanPostProcessor"/>-->
 
     <context:component-scan base-package="real_spring"/>
 
 
-    <context:property-placeholder location="classpath:application.properties"/>
+<!--    <context:property-placeholder location="classpath:application.properties"/>-->
 
-    <bean class="java.lang.Integer">
-        <constructor-arg  value="1001"/>
-    </bean>
+<!--    <bean class="java.lang.Integer">-->
+<!--        <constructor-arg  value="1001"/>-->
+<!--    </bean>-->
 
   <!--  <bean id="integerFactory" class="real_spring.quoters.IntegerFactory">
         <constructor-arg index="0" value="12"/>
@@ -29,19 +29,19 @@
 
 
 
-    <bean id="talkingRobot" class="real_spring.quoters.TalkingRobotImpl">
+<!--    <bean id="talkingRobot" class="real_spring.quoters.TalkingRobotImpl">-->
 
 
-    </bean>
+<!--    </bean>-->
 
-    <bean id="terminatorQuoter" class="real_spring.quoters.TerminatorQuoter">
+<!--    <bean id="terminatorQuoter" class="real_spring.quoters.TerminatorQuoter">-->
 
-    </bean>
+<!--    </bean>-->
 
 
-    <bean id="shakespeareQuoter" class="real_spring.quoters.ShakespeareQuoter">
+<!--    <bean id="shakespeareQuoter" class="real_spring.quoters.ShakespeareQuoter">-->
 
-    </bean>
+<!--    </bean>-->
 
 
 </beans>
