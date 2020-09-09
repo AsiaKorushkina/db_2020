@@ -2,37 +2,35 @@ package homework.never_use_switch;
 
 import lombok.SneakyThrows;
 import org.reflections.Reflections;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Evgeny Borisov
  */
 
+@Component
 public class MailDistributor {
 
-    private Map<Integer,MailSender> mailSenderMap = new HashMap<>();
-
-
-    @SneakyThrows
-    public MailDistributor() {
-        Reflections scanner = new Reflections("homework.never_use_switch");
-        Set<Class<? extends MailSender>> classes = scanner.getSubTypesOf(MailSender.class);
-        for (Class<? extends MailSender> aClass : classes) {
-            MailSender mailSender = aClass.getDeclaredConstructor().newInstance();
-            if (mailSenderMap.containsKey(mailSender.myCode())) {
-                throw new IllegalStateException(mailSender.myCode() + " already exists");
-            }
-            mailSenderMap.put(mailSender.myCode(), mailSender);
-        }
-    }
+    @Autowired
+    private Map<String, MailSender> mailSenderMap;
 
     public void sendMailInfo(MailInfo mailInfo) {
+        Optional<MailSender> first = mailSenderMap.values()
+                            .stream()
+                            .filter(i -> mailInfo.getMailType() == i.myCode())
+                            .findFirst();
+        if (first.isPresent()){
+            first.get().sendMail(mailInfo);
+        }
+        else{
+            mailSenderMap.get("defaultMailSender").sendMail(mailInfo);
+        }
 
-        MailSender mailSender = mailSenderMap.getOrDefault(mailInfo.getMailType(), new DefaultMailSender());
-        mailSender.sendMail(mailInfo);
     }
 }
 
