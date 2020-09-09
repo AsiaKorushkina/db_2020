@@ -11,7 +11,7 @@ public class ShakespeareQuoter implements Quoter {
     @Setter
     private String message;
 
-    @InjectRandomInt(min = 4,max = 7)
+    @InjectRandomInt(min = 2, max = 10)
     private int repeat;
 
 

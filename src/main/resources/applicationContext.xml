@@ -14,7 +14,7 @@
         <constructor-arg value="trust me!"/>
     </bean>
 
-
+    <bean class="real_spring.quoters.InjectRandomIntBeanPostProcessing"/>
 
     <bean id="talkingRobot" class="real_spring.quoters.TalkingRobotImpl">
         <constructor-arg>
