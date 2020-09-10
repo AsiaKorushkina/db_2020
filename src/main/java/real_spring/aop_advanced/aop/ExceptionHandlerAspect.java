@@ -8,18 +8,29 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import real_spring.aop_advanced.services.DBRuntimeException;
 
+import java.util.*;
+
 /**
  * @author Evgeny Borisov
  */
 @Component
 @Aspect
-//@PropertySource("mails_dba.properties")
+@PropertySource("classpath:mails.properties")
 public class ExceptionHandlerAspect {
 
-//    @Value()
+    @Value("${dba}")
+    String[] mails;
 
-    @AfterThrowing(pointcut = "execution(* real_spring.aop_advanced.*.*(..))", throwing = "ex")
+    private Map<DBRuntimeException,Object> exceptions = new WeakHashMap<>();
+
+
+    @AfterThrowing(pointcut = "execution(* real_spring.aop_advanced..*.*(..))", throwing = "ex")
     public void handleDbException(DBRuntimeException ex) {
-        System.out.println("sending mails "+ex.getMessage());
+        if (!exceptions.containsKey(ex)){
+            exceptions.put(ex, null);
+            for (String mail : mails) {
+                System.out.println("sending mails to " + mail + ": " + ex.getMessage());
+            }
+        }
     }
 }
